@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textile Spare Parts</title>
+    <style>
+        /* CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: darkgray;
+            color: blueviolet;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: blue;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: darkviolet;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .product {
+            border: 1px solid forestgreen;
+            border-radius: 15px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 80%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-list {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Textile Spare Parts</h1>
+        <nav>
+            <a href="#products">Products</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </header>
+
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product-list">
+            <div class="product" onclick="showProductDetails('Product 1', 'High-quality printer stabilizer control cards and electronic parts for textile machines including Trutzschler and Rieter. Perfect for maintaining the efficiency and performance of your equipment.', 'printer-stabilizer-control-card-500x500.webp')">
+                <img src="printer-stabilizer-control-card-500x500.webp" alt="Product 1 Thumbnail" loading="lazy">
+                <h3>Product 1</h3>
+            </div>
+            <div class="product" onclick="showProductDetails('Product 2', 'All machine electronic parts and accessories for Trutzschler, Rieter, Carding Machine, Drawing Machine, Savio, Wander, Auto Con parts available.', 'WhatsApp Image 2024-08-13 at 15.13.00_0de788a1.jpg')">
+                <img src="WhatsApp Image 2024-08-13 at 15.13.00_0de788a1.jpg" alt="Product 2 Thumbnail" loading="lazy">
+                <h3>Product 2</h3>
+            </div>
+            <!-- Add more products as needed -->
+        </div>
+    </section>
+
+    <div id="product-details" class="modal" role="dialog" aria-labelledby="details-title" aria-hidden="true">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()" aria-label="Close">&times;</span>
+            <img id="details-image" src="" alt="Product Image">
+            <h3 id="details-title"></h3>
+            <p id="details-description"></p>
+        </div>
+    </div>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form" onsubmit="handleFormSubmit(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+        <div class="contact-info">
+            <h3>About Us</h3>
+            <p style="color:forestgreen;">All machine electronic parts and accessories for:</p>
+            <ul>
+                <li style="color:red;">Trutzschler</li>
+                <li style="color:red;">Rieter</li>
+                <li style="color:red;">arding Machine</li>
+                <li style="color:red;">rawing Machine</li>
+                <li style="color:red;">avio</li>
+                <li style="color:red;">Wander</li>
+                <li style="color:red;">auto Con Parts</li> 
+                <li> contact Number: 03035486662</li>
+
+            </ul>
+            <h3 style="color:darkred;">Arish Enterprises</h3> 
+            
+        </div> 
+        
+
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Textile Spare Parts. All rights reserved. If you need any assistance, please contact us.</p>
+    </footer>
+
+    <script>
+        // Function to show product details in a modal
+        function showProductDetails(title, description, image) {
+            document.getElementById('details-title').innerText = title;
+            document.getElementById('details-description').innerText = description;
+            document.getElementById('details-image').src = image;
+            const modal = document.getElementById('product-details');
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('product-details');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        // Function to handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for contacting us! We will get back to you shortly.');
+            document.getElementById('contact-form').reset();
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
